@@ -1,0 +1,60 @@
+import { Button, InputAdornment, TextField } from "@mui/material"
+import { Visibility, VisibilityOff } from "@mui/icons-material"
+import { useState } from "react"
+
+const Login = () => {
+  const phoneNumber = "0962.800.xxx"
+
+  const [showPassword, setShowPassword] = useState(false)
+
+  const handleClickShowPassword = () => setShowPassword(show => !show)
+
+  return (
+    <div className="bg-slate-100 flex flex-col gap-5 place-self-center w-[450px] h-[350px] rounded-sm">
+
+      <img 
+        src="./src/assets/react.svg" 
+        alt=""
+        className="w-24 h-24 mx-auto mt-4 mb-6" 
+      />
+
+      <TextField
+        className="w-[350px] self-center"
+        id="outlined-basic"
+        label="Tên đăng nhập"
+        variant="outlined"
+        size="small"
+      />
+
+      <TextField
+        className="w-[350px] self-center"
+        id="outlined-basic"
+        label="Mật khẩu"
+        variant="outlined"
+        size="small"
+        type={showPassword ? "text" : "password"}
+        InputProps={{
+          endAdornment:
+            <InputAdornment position="end" className="cursor-pointer" onClick={handleClickShowPassword}>
+              {showPassword ? <VisibilityOff /> : <Visibility />}
+            </InputAdornment>
+        }}
+      />
+
+      <Button 
+        className="w-[110px] h-[26px] self-center"
+        variant="outlined" 
+        size="small"
+      >
+        ĐĂNG NHẬP
+      </Button>
+
+      <p className="font-semibold text-sm self-center">
+        Hỗ trợ kỹ thuật: {phoneNumber}
+      </p>
+
+    </div>
+  )
+}
+
+export default Login
