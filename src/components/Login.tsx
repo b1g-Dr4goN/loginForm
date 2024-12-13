@@ -8,10 +8,14 @@ const Login = () => {
 
   const [showPassword, setShowPassword] = useState(false)
 
+  const [hoverBtn, setHoverBtn] = useState(false)
+
   const handleClickShowPassword = () => setShowPassword(show => !show)
 
+  const handleHoverBtn = () => setHoverBtn(hovered => !hovered)
+
   return (
-    <div className="bg-slate-100 flex flex-col gap-5 place-self-center w-[450px] h-[350px] rounded-sm">
+    <div className="bg-slate-100 flex flex-col gap-[18px] place-self-center w-[450px] h-[350px] rounded-sm">
 
       <img 
         src={reactsvg}
@@ -43,9 +47,12 @@ const Login = () => {
       />
 
       <Button 
-        className="w-[110px] h-[26px] self-center"
-        variant="outlined" 
+        className="w-[110px] self-center"
+        color="success"
+        variant={hoverBtn ? "contained" : "outlined"}
         size="small"
+        onPointerEnter={handleHoverBtn}
+        onPointerLeave={handleHoverBtn}
       >
         ĐĂNG NHẬP
       </Button>
