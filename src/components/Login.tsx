@@ -1,6 +1,7 @@
 import { Button, InputAdornment, TextField } from "@mui/material"
 import { Visibility, VisibilityOff } from "@mui/icons-material"
 import { useState } from "react"
+import reactsvg from "../assets/react.svg"
 
 const Login = () => {
   const phoneNumber = "0962.800.xxx"
@@ -13,7 +14,7 @@ const Login = () => {
     <div className="bg-slate-100 flex flex-col gap-5 place-self-center w-[450px] h-[350px] rounded-sm">
 
       <img 
-        src="./src/assets/react.svg" 
+        src={reactsvg}
         alt=""
         className="w-24 h-24 mx-auto mt-4 mb-6" 
       />
