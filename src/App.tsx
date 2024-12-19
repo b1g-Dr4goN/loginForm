@@ -1,11 +1,35 @@
-import Login from "./components/Login"
+import { useState } from "react";
+import Login from "./components/Login";
+import Dashboard from "./components/management/Dashboard";
+import { Toaster } from "react-hot-toast";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-const App = () => {
+const theme = createTheme({
+  typography: {
+    fontFamily: "kanit",
+  },
+});
+
+function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   return (
-    <div className={`grid py-4 min-h-screen bg-[url(./assets/background.jpg)] bg-center`}>
-      <Login />
-    </div>
-  )
+    <>
+      <Toaster position="top-right" reverseOrder={false} />
+      <ThemeProvider theme={theme}>
+        <div
+          className={`grid min-h-screen bg-[url(/background.jpg)] bg-center`}
+          style={{ fontFamily: "kanit" }}
+        >
+          {isLoggedIn ? (
+            <Dashboard />
+          ) : (
+            <Login isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+          )}
+        </div>
+      </ThemeProvider>
+    </>
+  );
 }
 
-export default App
+export default App;
