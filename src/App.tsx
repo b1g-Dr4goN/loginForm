@@ -1,8 +1,6 @@
-import { useState } from "react";
-import Login from "./components/login/Login";
-import Dashboard from "./components/management/Dashboard";
 import { Toaster } from "react-hot-toast";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import RootRoutes from "./routes/Router";
 
 const theme = createTheme({
   typography: {
@@ -10,9 +8,8 @@ const theme = createTheme({
   },
 });
 
-function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+function App() {
   return (
     <>
       <Toaster position="top-right" reverseOrder={false} />
@@ -24,11 +21,7 @@ function App() {
             backgroundImage: "url('./background.jpg')",
           }}
         >
-          {isLoggedIn ? (
-            <Dashboard />
-          ) : (
-            <Login isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
-          )}
+          <RootRoutes />
         </div>
       </ThemeProvider>
     </>

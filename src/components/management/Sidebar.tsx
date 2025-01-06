@@ -6,28 +6,34 @@ import {
   faUserGear,
   faFolder,
 } from "@fortawesome/free-solid-svg-icons";
+import { Button } from "@mui/material";
+import { Link, useNavigate } from "react-router";
+import toast from "react-hot-toast";
 
-interface SidebarProps {
-  showUsers: boolean;
-  setShowUsers: (value: boolean) => void;
-}
+const Sidebar = () => {
+  const [isOpenMenu, setOpenMenu] = useState(true);
 
-const Sidebar = ({ showUsers, setShowUsers }: SidebarProps) => {
-  const [isOpenMenu, setOpenMenu] = useState(false);
+  const [isOpenUserManagement, setOpenUserManagement] = useState(true);
 
-  const [isOpenUserManagement, setOpenUserManagement] = useState(false);
+  const navigate = useNavigate();
+
+  const handleSignOut = () => {
+    toast.success("Đăng xuất thành công!");
+    sessionStorage.setItem("authToken", "");
+  };
 
   const handleOpenMenu = () => {
     setOpenMenu((menu) => !menu);
+    navigate("/");
   };
 
   const handleOpenUserManagement = () => {
     setOpenUserManagement((menu) => !menu);
   };
 
-  const handleToggleUsersModal = () => {
-    setShowUsers(!showUsers);
-  };
+  const handleOpenUserModal = () => {
+    navigate("/users");
+  }
 
   return (
     <div className="flex flex-col items-center w-72 bg-slate-100 border-gray-400 border-x-[0.5px] min-h-screen">
@@ -58,7 +64,7 @@ const Sidebar = ({ showUsers, setShowUsers }: SidebarProps) => {
           {isOpenUserManagement ? (
             <div
               className="flex items-center h-8 hover:cursor-pointer"
-              onClick={handleToggleUsersModal}
+              onClick={handleOpenUserModal}
             >
               <FontAwesomeIcon className="pl-8 pr-3" icon={faFolder} />
               Người dùng
@@ -70,6 +76,15 @@ const Sidebar = ({ showUsers, setShowUsers }: SidebarProps) => {
       ) : (
         <div></div>
       )}
+
+      <Button
+        sx={{ marginTop: "auto", marginBottom: "26px" }}
+        variant="contained"
+        color="error"
+        onClick={handleSignOut}
+      >
+        <Link to="/login">ĐĂNG XUẤT</Link>
+      </Button>
     </div>
   );
 };

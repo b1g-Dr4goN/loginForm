@@ -1,0 +1,1 @@
+export const faculties: string[] = ["Toán - Cơ - Tin học", "Vật lý", "Hóa học", "Sinh học", "Địa lý", "Địa chất", "Môi trường", "Khí tượng thủy văn & Hải dương học"];

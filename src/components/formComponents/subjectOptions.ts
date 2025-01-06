@@ -1,0 +1,1 @@
+export const subjects: string[] = ["SINH VIÊN", "HỌC VIÊN CAO HỌC", "NGHIÊN CỨU SINH", "CỬ NHÂN", "THẠC SĨ", "TIẾN SĨ"];
