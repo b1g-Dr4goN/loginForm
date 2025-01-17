@@ -1,5 +1,5 @@
-import { TUpdateUserSchema } from "../libs/UpdateUserType";
-import axiosInstance from "../utils/axiosInstance";
+import { TUpdateUserSchema } from "../../libs/UpdateUserType";
+import axiosInstance from "../../utils/axiosInstance";
 
 const axiosUpdateUser = async (data: TUpdateUserSchema, userId: number) => {
     try {

@@ -4,7 +4,7 @@ import CssTextField from "../formComponents/textField";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useState } from "react";
 import reactsvg from "../../assets/react.svg";
-import axiosLogin from "../../apis/login";
+import axiosLogin from "../../APIs/userAPI/login";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
@@ -36,7 +36,7 @@ const Login = () => {
         toast.success("Đăng nhập thành công!");
         sessionStorage.setItem("authToken", res);
         navigate("/");
-      }
+      }          // helperText="Mật khẩu có ít nhất 8 kí tự"
     } catch (err) {
       console.log(err);
     } finally {
@@ -64,7 +64,6 @@ const Login = () => {
           label="Tên đăng nhập"
           variant="outlined"
           size="small"
-          required={true}
           helperText={errors.username && errors.username?.message}
         />
 
@@ -77,8 +76,6 @@ const Login = () => {
           label="Mật khẩu"
           variant="outlined"
           size="small"
-          required={true}
-          // helperText="Mật khẩu có ít nhất 8 kí tự"
           type={showPassword ? "text" : "password"}
           InputProps={{
             endAdornment: (

@@ -1,4 +1,4 @@
-import axiosInstance from "../utils/axiosInstance";
+import axiosInstance from "../../utils/axiosInstance";
 
 const axiosLogin = async (usr: string, pass: string): Promise<string> => {
     try {

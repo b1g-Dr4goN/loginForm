@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { TextField } from "@mui/material";
+import { Select } from "@mui/material";
 
-const CssTextField = styled(TextField)({
+const CssSelect = styled(Select)({
   "& label": {
     fontSize: "13px",
   },
@@ -32,8 +32,8 @@ const CssTextField = styled(TextField)({
   "& .MuiInputBase-input": {
     fontSize: "12px",
     height: "12px",
-    padding: "10px",
+    padding: "7.375px",
   },
 });
 
-export default CssTextField;
+export default CssSelect;
