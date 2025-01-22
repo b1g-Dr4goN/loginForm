@@ -49,17 +49,13 @@ const Login = () => {
       <img src={reactsvg} alt="" className="w-24 h-24 mx-auto mt-4 mb-6" />
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className={`flex flex-col place-self-center w-[450px] h-auto rounded-sm ${
-          errors.username?.message && errors.password?.message
-            ? "gap-2"
-            : "gap-6"
-        }`}
+        className={`flex flex-col place-self-center w-[450px] h-auto rounded-sm gap-1`}
       >
         <CssTextField
           {...register("username")}
           autoComplete="off"
           error={!!errors.username}
-          className="w-[350px] self-center"
+          className="w-[350px] self-center h-14"
           id="outlined-basic username"
           label="Tên đăng nhập"
           variant="outlined"
@@ -71,7 +67,7 @@ const Login = () => {
           {...register("password")}
           autoComplete="off"
           error={!!errors.password}
-          className="w-[350px] self-center"
+          className="w-[350px] self-center h-14"
           id="outlined-basic password"
           label="Mật khẩu"
           variant="outlined"

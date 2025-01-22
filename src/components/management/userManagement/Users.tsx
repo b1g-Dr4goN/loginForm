@@ -142,7 +142,7 @@ const Users = () => {
           <div className="h-10 font-semibold content-center ml-3 mr-auto border-b-[0.5px] border-teal-600">
             NGƯỜI DÙNG
           </div>
-          <div className="self-center w-full z-0">
+          <div className="self-center z-0 w-[calc(99%)]">
             <TableContainer
               component={Paper}
               sx={{ maxHeight: 666, zIndex: 1000 }}
@@ -242,7 +242,27 @@ const Users = () => {
                     {header.map((val, idx) => (
                       <TableCell
                         key={idx}
-                        className="border-x-[0.5px]"
+                        className={`border-x-[0.5px] ${
+                          idx === 0
+                            ? "w-16"
+                            : idx === 1
+                            ? "w-40"
+                            : idx === 2
+                            ? "w-60"
+                            : idx === 3
+                            ? "w-40"
+                            : idx === 4
+                            ? "w-36"
+                            : idx === 5
+                            ? "w-36"
+                            : idx === 6
+                            ? "w-40"
+                            : idx === 7
+                            ? "w-40"
+                            : idx === 8
+                            ? "w-44"
+                            : "w-40"
+                        }`}
                         sx={{ fontWeight: "bold", textAlign: "center" }}
                       >
                         {val}
@@ -252,7 +272,13 @@ const Users = () => {
                 </TableHead>
                 <TableBody>
                   {loading ? (
-                    <TableRow className="h-56">
+                    <TableRow
+                      sx={{
+                        height: `${
+                          rowsPerPage !== 25 ? 53.02 * rowsPerPage : 555.5
+                        }px`,
+                      }}
+                    >
                       <TableCell colSpan={10}>
                         <p className="flex items-center">
                           <ClipLoader
@@ -280,7 +306,7 @@ const Users = () => {
                         >
                           {page * rowsPerPage + idx + 1}
                         </TableCell>
-                        <TableCell className="border-x-[0.5px] min-w-32">
+                        <TableCell className="border-x-[0.5px]">
                           {user.username}
                         </TableCell>
                         <TableCell className="border-x-[0.5px]">
@@ -327,6 +353,7 @@ const Users = () => {
                 setSelectedRowValue={setSelectedRowValue}
                 isShowModal={isShowUpdateModal}
                 handleCloseModal={handleCloseUpdateModal}
+                handleReload={handleReload}
               />
             )}
 
@@ -334,6 +361,7 @@ const Users = () => {
               <CreateUserModal
                 isShowModal={isShowCreateModal}
                 handleCloseModal={handleCloseCreateModal}
+                handleReload={handleReload}
               />
             )}
           </div>

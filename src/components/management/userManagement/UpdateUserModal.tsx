@@ -19,17 +19,18 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { getFacultyList } from "../../../APIs/userAPI/getFacultiesEnum";
+import { ClipLoader } from "react-spinners";
 import CssTextField from "../../formComponents/textField";
 import CssButton from "../../formComponents/button";
 import CssButton2 from "../../formComponents/button2";
 import axiosUpdateUser from "../../../APIs/userAPI/updateUser";
 import toast from "react-hot-toast";
 import CssSelect from "../../formComponents/select";
-import { ClipLoader } from "react-spinners";
 
 interface props {
   selectedRowValue: TUserSchema;
   isShowModal: boolean;
+  handleReload: () => void;
   handleCloseModal: () => void;
   setSelectedRow: Dispatch<SetStateAction<number>>;
   setSelectedRowValue: Dispatch<
@@ -60,6 +61,7 @@ const UpdateUserModal = ({
   setSelectedRow,
   isShowModal,
   handleCloseModal,
+  handleReload,
 }: props) => {
   const {
     register,
@@ -97,6 +99,8 @@ const UpdateUserModal = ({
       toast.success("Sửa người dùng thành công!");
     } catch (err) {
       console.log(err);
+    } finally {
+      handleReload();
     }
   };
 
@@ -170,12 +174,12 @@ const UpdateUserModal = ({
               className="flex flex-col h-full p-6"
             >
               <div className="flex flex-row gap-5 w-full">
-                <div className="flex flex-col gap-5 w-1/2">
+                <div className="flex flex-col gap-2 w-1/2">
                   <CssTextField
                     {...register("fullName")}
                     autoComplete="off"
                     error={!!errors.fullName}
-                    className="w-full self-center"
+                    className="w-full self-center h-14"
                     id="outlined-basic fullName"
                     label="Tên người dùng"
                     variant="outlined"
@@ -189,7 +193,7 @@ const UpdateUserModal = ({
                     autoComplete="off"
                     error={!!errors.userId}
                     disabled
-                    className="w-full self-center"
+                    className="w-full self-center h-14"
                     id="outlined-basic userId"
                     label="Mã người dùng"
                     variant="outlined"
@@ -202,7 +206,7 @@ const UpdateUserModal = ({
                     {...register("phone")}
                     autoComplete="off"
                     error={!!errors.phone}
-                    className="w-full self-center"
+                    className="w-full self-center h-14"
                     id="outlined-basic phone"
                     label="Điện thoại"
                     variant="outlined"
@@ -216,7 +220,7 @@ const UpdateUserModal = ({
                     {...register("email")}
                     autoComplete="off"
                     error={!!errors.email}
-                    className="w-full self-center"
+                    className="w-full self-center h-14"
                     id="outlined-basic email"
                     label="Email"
                     variant="outlined"
@@ -229,7 +233,7 @@ const UpdateUserModal = ({
                   <FormControl
                     sx={{ minWidth: 120, width: "100%" }}
                     size="small"
-                    className="w-full self-center"
+                    className="w-full self-center h-14"
                   >
                     <InputLabel
                       id="demo-select-small-label"
@@ -263,12 +267,12 @@ const UpdateUserModal = ({
                   </FormControl>
                 </div>
 
-                <div className="flex flex-col gap-5 w-1/2">
+                <div className="flex flex-col gap-2 w-1/2">
                   <CssTextField
                     {...register("username")}
                     autoComplete="off"
                     error={!!errors.username}
-                    className="w-full self-center"
+                    className="w-full self-center h-14"
                     id="outlined-basic username"
                     label="Tên đăng nhập"
                     variant="outlined"
@@ -282,7 +286,7 @@ const UpdateUserModal = ({
                     {...register("password")}
                     autoComplete="off"
                     error={!!errors.password}
-                    className="w-full self-center"
+                    className="w-full self-center h-14"
                     id="outlined-basic password"
                     label="Mật khẩu"
                     variant="outlined"
@@ -308,7 +312,7 @@ const UpdateUserModal = ({
                     {...register("subject")}
                     autoComplete="off"
                     error={!!errors.subject}
-                    className="w-full self-center"
+                    className="w-full self-center h-14"
                     id="outlined-basic subject"
                     label="Đối tượng"
                     variant="outlined"
@@ -322,7 +326,7 @@ const UpdateUserModal = ({
                     {...register("systemLevel", { valueAsNumber: true })}
                     autoComplete="off"
                     error={!!errors.systemLevel}
-                    className="w-full self-center"
+                    className="w-full self-center h-14"
                     id="outlined-basic systemLevel"
                     label="Câp người dùng"
                     variant="outlined"

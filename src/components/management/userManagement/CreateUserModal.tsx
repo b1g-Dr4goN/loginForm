@@ -111,7 +111,7 @@ const CreateUserModal = ({ isShowModal, handleCloseModal }: props) => {
   }, []);
 
   return (
-    <Modal open={isShowModal}>
+    <Modal open={isShowModal} onClose={handleCloseModal}>
       <Fade in={isShowModal} timeout={200}>
         <Box
           sx={{
@@ -137,15 +137,13 @@ const CreateUserModal = ({ isShowModal, handleCloseModal }: props) => {
             >
               <div className="flex flex-row gap-5 w-full">
                 <div
-                  className={`flex flex-col w-1/2 ${
-                    Object.keys(errors).length > 2 ? "gap-2" : "gap-5"
-                  }`}
+                  className={`flex flex-col w-1/2 gap-1`}
                 >
                   <CssTextField
                     {...register("fullName")}
                     autoComplete="off"
                     error={!!errors.fullName}
-                    className="w-full self-center"
+                    className="w-full self-center h-14"
                     id="outlined-basic fullName"
                     label="Tên người dùng"
                     variant="outlined"
@@ -157,7 +155,7 @@ const CreateUserModal = ({ isShowModal, handleCloseModal }: props) => {
                     {...register("phone")}
                     autoComplete="off"
                     error={!!errors.phone}
-                    className="w-full self-center"
+                    className="w-full self-center h-14"
                     id="outlined-basic phone"
                     label="Điện thoại"
                     variant="outlined"
@@ -169,7 +167,7 @@ const CreateUserModal = ({ isShowModal, handleCloseModal }: props) => {
                     {...register("email")}
                     autoComplete="off"
                     error={!!errors.email}
-                    className="w-full self-center"
+                    className="w-full self-center h-14"
                     id="outlined-basic email"
                     label="Email"
                     variant="outlined"
@@ -177,7 +175,7 @@ const CreateUserModal = ({ isShowModal, handleCloseModal }: props) => {
                     helperText={errors.email && errors.email?.message}
                   />
 
-                  <div className="w-full flex flex-row justify-between h-8">
+                  <div className="w-full flex flex-row justify-between h-8 mb-6">
                     <p className="self-center">Trạng thái</p>
                     <Switch
                       {...register("status")}
@@ -201,7 +199,7 @@ const CreateUserModal = ({ isShowModal, handleCloseModal }: props) => {
                   <FormControl
                     sx={{ minWidth: 120, width: "100%" }}
                     size="small"
-                    className="w-full self-center"
+                    className="w-full self-center h-14"
                   >
                     <InputLabel
                       id="demo-select-small-label"
@@ -236,15 +234,13 @@ const CreateUserModal = ({ isShowModal, handleCloseModal }: props) => {
                 </div>
 
                 <div
-                  className={`flex flex-col w-1/2 ${
-                    Object.keys(errors).length > 3 ? "gap-2" : "gap-5"
-                  }`}
+                  className={`flex flex-col w-1/2 gap-1`}
                 >
                   <CssTextField
                     {...register("username")}
                     autoComplete="off"
                     error={!!errors.username}
-                    className="w-full self-center"
+                    className="w-full self-center h-14"
                     id="outlined-basic username"
                     label="Tên đăng nhập"
                     variant="outlined"
@@ -256,7 +252,7 @@ const CreateUserModal = ({ isShowModal, handleCloseModal }: props) => {
                     {...register("password")}
                     autoComplete="off"
                     error={!!errors.password}
-                    className="w-full self-center"
+                    className="w-full self-center h-14"
                     id="outlined-basic password"
                     label="Mật khẩu"
                     variant="outlined"
@@ -280,7 +276,7 @@ const CreateUserModal = ({ isShowModal, handleCloseModal }: props) => {
                     {...register("subject")}
                     autoComplete="off"
                     error={!!errors.subject}
-                    className="w-full self-center"
+                    className="w-full self-center h-14"
                     id="outlined-basic subject"
                     label="Đối tượng"
                     variant="outlined"
@@ -292,7 +288,7 @@ const CreateUserModal = ({ isShowModal, handleCloseModal }: props) => {
                     {...register("systemLevel", { valueAsNumber: true })}
                     autoComplete="off"
                     error={!!errors.systemLevel}
-                    className="w-full self-center"
+                    className="w-full self-center h-14"
                     id="outlined-basic systemLevel"
                     label="Câp người dùng"
                     variant="outlined"
@@ -305,7 +301,7 @@ const CreateUserModal = ({ isShowModal, handleCloseModal }: props) => {
                   <FormControl
                     sx={{ minWidth: 120, width: "100%" }}
                     size="small"
-                    className="w-full self-center"
+                    className="w-full self-center h-14"
                   >
                     <InputLabel
                       id="demo-select-small-label"

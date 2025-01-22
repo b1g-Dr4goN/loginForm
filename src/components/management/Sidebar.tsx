@@ -11,8 +11,8 @@ import { useNavigate } from "react-router";
 
 const Sidebar = () => {
   const [isOpenMenu, setOpenMenu] = useState(true);
-
   const [isOpenUserManagement, setOpenUserManagement] = useState(true);
+  const [isOpenTodoManagement, setOpenTodoManagement] = useState(true);
 
   const navigate = useNavigate();
 
@@ -25,9 +25,17 @@ const Sidebar = () => {
     setOpenUserManagement((menu) => !menu);
   };
 
+  const handleOpenTodoManagement = () => {
+    setOpenTodoManagement((menu) => !menu);
+  };
+
   const handleOpenUserModal = () => {
     navigate("/users");
   };
+
+  const handleOpenTodoModal = () => {
+    navigate("/todos");
+  }
 
   return (
     <div
@@ -61,7 +69,8 @@ const Sidebar = () => {
                 icon={isOpenUserManagement ? faAngleDown : faAngleRight}
               />
             </div>
-            {isOpenUserManagement ? (
+
+            {isOpenUserManagement && (
               <div
                 className="flex items-center h-8 hover:cursor-pointer"
                 onClick={handleOpenUserModal}
@@ -69,9 +78,30 @@ const Sidebar = () => {
                 <FontAwesomeIcon className="pl-8 pr-3" icon={faFolder} />
                 Người dùng
               </div>
-            ) : (
-              <div></div>
             )}
+
+            <div
+              className="flex items-center h-10 py-2 hover:cursor-pointer"
+              onClick={handleOpenTodoManagement}
+            >
+              <FontAwesomeIcon className="px-3" icon={faUserGear} />
+              Quản lý công việc
+              <FontAwesomeIcon
+                className="ml-auto mr-4"
+                icon={isOpenTodoManagement ? faAngleDown : faAngleRight}
+              />
+            </div>
+
+            {isOpenTodoManagement && (
+              <div
+                className="flex items-center h-8 hover:cursor-pointer"
+                onClick={handleOpenTodoModal}
+              >
+                <FontAwesomeIcon className="pl-8 pr-3" icon={faFolder} />
+                Công việc
+              </div>
+            )}
+
           </div>
         </>
       )}

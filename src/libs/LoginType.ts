@@ -6,7 +6,7 @@ export const loginSchema = z.object({
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/,
     {
       message:
-        "Mật khẩu chứa 8-20 ký tự (A-Z, a-z, chữ số và một ký tự đặc biệt)",
+        "Mật khẩu 8-20 ký tự (A-Z, a-z, chữ số và ký tự đặc biệt)",
     }
   ),
 });
