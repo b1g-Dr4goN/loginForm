@@ -27,12 +27,13 @@ import toast from "react-hot-toast";
 import CssSelect from "../../formComponents/select";
 import { getDegreeList } from "../../../APIs/userAPI/getDegreeNamesEnum";
 
-interface props {
+type props = {
   isShowModal: boolean;
   handleCloseModal: () => void;
+  handleReload: () => void;
 }
 
-const CreateUserModal = ({ isShowModal, handleCloseModal }: props) => {
+const CreateUserModal = ({ isShowModal, handleCloseModal, handleReload }: props) => {
   const {
     register,
     handleSubmit,
@@ -51,6 +52,8 @@ const CreateUserModal = ({ isShowModal, handleCloseModal }: props) => {
       toast.success("Tạo người dùng thành công!");
     } catch (err) {
       console.log(err);
+    } finally {
+      handleReload();
     }
   };
 
