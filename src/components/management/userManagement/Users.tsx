@@ -1,6 +1,17 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
-import { InputAdornment, TableHead, TextField } from "@mui/material";
+import {
+  InputAdornment,
+  TextField,
+  Table,
+  TableHead,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TablePagination,
+  TableRow,
+  Paper,
+} from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faMagnifyingGlass,
@@ -11,22 +22,15 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { TUserSchema } from "../../../libs/UserType";
 import { ClipLoader } from "react-spinners";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TablePagination from "@mui/material/TablePagination";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import Sidebar from "../Sidebar";
 import TablePaginationActions from "./UserTablePagination";
-import axiosGetAllUsers from "../../../APIs/userAPI/getAllUsers";
-import toast from "react-hot-toast";
-import axiosDeleteUser from "../../../APIs/userAPI/deleteUser";
-import UpdateUserModal from "./UpdateUserModal";
 import CreateUserModal from "./CreateUserModal";
-import Header from "../../Header";
+import UpdateUserModal from "./UpdateUserModal";
+import DeleteUserModal from "./DeleteUserModal";
+import axiosGetAllUsers from "../../../APIs/userAPI/getAllUsers";
 import axiosFilterUsersByName from "../../../APIs/userAPI/searchUsersByName";
+import Header from "../../Header";
+import Sidebar from "../Sidebar";
+import toast from "react-hot-toast";
 
 const header = [
   "ID",
@@ -68,6 +72,7 @@ const Users = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [isShowCreateModal, setIsShowCreateModal] = useState(false);
   const [isShowUpdateModal, setIsShowUpdateModal] = useState(false);
+  const [isShowDeleteModal, setIsShowDeleteModal] = useState(false);
   const [selectedRow, setSelectedRow] = useState(-1);
   const [selectedRowValue, setSelectedRowValue] = useState<TUserSchema>();
 
@@ -107,6 +112,14 @@ const Users = () => {
     }
   };
 
+  const handleOpenDeleteModal = () => {
+    if (selectedRow !== -1) {
+      setIsShowDeleteModal(true);
+    } else {
+      toast.error("Chọn một người dùng để xoá!");
+    }
+  };
+
   const handleCloseCreateModal = () => {
     setIsShowCreateModal(false);
   };
@@ -115,21 +128,8 @@ const Users = () => {
     setIsShowUpdateModal(false);
   };
 
-  const handleDeleteUser = async () => {
-    if (selectedRow === -1) {
-      toast.error("Chọn một người dùng để xóa!");
-    } else {
-      try {
-        const res = await axiosDeleteUser(selectedRowValue?.userId || -1);
-        if (res) {
-          toast.success("Xóa nguời dùng thành công!");
-        }
-      } catch (err) {
-        console.log(err);
-      } finally {
-        handleReload();
-      }
-    }
+  const handleCloseDeleteModal = () => {
+    setIsShowDeleteModal(false);
   };
 
   const handleSearchUsersByName = async () => {
@@ -159,12 +159,11 @@ const Users = () => {
     const handler = setTimeout(() => {
       if (searchName !== "") {
         handleSearchUsersByName();
-      }
-      else {
+      } else {
         fetchUsers();
       }
-    }, 500); 
-    
+    }, 500);
+
     return () => {
       clearTimeout(handler);
     };
@@ -227,7 +226,7 @@ const Users = () => {
                         }`}
                         title="Xoá"
                         icon={faTrash}
-                        onClick={handleDeleteUser}
+                        onClick={handleOpenDeleteModal}
                       />
                     </TableCell>
                     <TablePagination
@@ -410,6 +409,17 @@ const Users = () => {
                 setSelectedRowValue={setSelectedRowValue}
                 isShowModal={isShowUpdateModal}
                 handleCloseModal={handleCloseUpdateModal}
+                handleReload={handleReload}
+              />
+            )}
+
+            {selectedRowValue && isShowDeleteModal && (
+              <DeleteUserModal
+                selectedRowValue={selectedRowValue}
+                setSelectedRow={setSelectedRow}
+                setSelectedRowValue={setSelectedRowValue}
+                isShowModal={isShowDeleteModal}
+                handleCloseModal={handleCloseDeleteModal}
                 handleReload={handleReload}
               />
             )}
