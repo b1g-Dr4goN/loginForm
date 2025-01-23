@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import { InputAdornment, TableHead, TextField } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -25,6 +26,7 @@ import axiosDeleteUser from "../../../APIs/userAPI/deleteUser";
 import UpdateUserModal from "./UpdateUserModal";
 import CreateUserModal from "./CreateUserModal";
 import Header from "../../Header";
+import axiosFilterUsersByName from "../../../APIs/userAPI/searchUsersByName";
 
 const header = [
   "ID",
@@ -44,6 +46,7 @@ const Users = () => {
   const [page, setPage] = useState(0);
   const [userCnt, setUserCnt] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [searchName, setSearchName] = useState<string>("");
 
   const fetchUsers = async () => {
     setLoading(true);
@@ -57,10 +60,6 @@ const Users = () => {
       setLoading(false);
     }
   };
-
-  useEffect(() => {
-    fetchUsers();
-  }, [page, rowsPerPage]);
 
   const handleReload = () => {
     fetchUsers();
@@ -132,6 +131,44 @@ const Users = () => {
       }
     }
   };
+
+  const handleSearchUsersByName = async () => {
+    setLoading(true);
+    try {
+      const res = await axiosFilterUsersByName(searchName, page, rowsPerPage);
+      setRows(res.content);
+      setUserCnt(res.page.totalElements);
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const [debouncedValue, setDebouncedValue] = useState<string>(searchName);
+
+  useEffect(() => {
+    if (searchName === "") {
+      fetchUsers();
+    } else {
+      handleSearchUsersByName();
+    }
+  }, [page, rowsPerPage]);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      if (searchName !== "") {
+        handleSearchUsersByName();
+      }
+      else {
+        fetchUsers();
+      }
+    }, 500); 
+    
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [debouncedValue]);
 
   return (
     <>
@@ -228,6 +265,12 @@ const Users = () => {
                         className="w-full"
                         size="small"
                         placeholder="Người dùng"
+                        value={searchName ?? ""}
+                        onChange={(e) => {
+                          setSearchName(e.target.value);
+                          setPage(0);
+                          setDebouncedValue(e.target.value);
+                        }}
                         InputProps={{
                           startAdornment: (
                             <InputAdornment position="start">
@@ -286,6 +329,20 @@ const Users = () => {
                             size={35}
                             color="#36d7b7"
                           />
+                        </p>
+                      </TableCell>
+                    </TableRow>
+                  ) : rows.length === 0 ? (
+                    <TableRow
+                      sx={{
+                        height: `${
+                          rowsPerPage !== 25 ? 53.02 * rowsPerPage : 555.5
+                        }px`,
+                      }}
+                    >
+                      <TableCell colSpan={10}>
+                        <p className="flex items-center justify-center">
+                          Không có người dùng nào
                         </p>
                       </TableCell>
                     </TableRow>

@@ -41,7 +41,7 @@ const Header = () => {
         TRANG CHỦ
       </CssButton>
       <h1 className="relative w-1/2 text-center">USER MANAGEMENT APPLICATION</h1>
-      <div className="flex flex-row gap-6 mr-6">
+      <div className="flex flex-row gap-6 mr-6 w-80 justify-between">
         {user ? (
           <div>
             <h3 className="text-xs text-white">
@@ -52,11 +52,11 @@ const Header = () => {
             </h3>
           </div>
         ) : (
-          <p className="flex items-center w-44">
+          <p className="flex items-center">
             <ClipLoader className="ml-auto mr-auto" size={18} color="#36d7b7" />
           </p>
         )}
-        <Button variant="contained" color="error" onClick={handleSignOut}>
+        <Button className="" variant="contained" color="error" onClick={handleSignOut}>
           <Link to="/login">ĐĂNG XUẤT</Link>
         </Button>
       </div>
